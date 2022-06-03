@@ -1,0 +1,7 @@
+project: abyss
+target: abyss
+testsuite:
+  - file://Unittest/PairedDBG/test.fa
+
+cmds:
+  - cmd: /usr/local/bin/abyss-overlap @@
