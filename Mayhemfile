@@ -1,5 +1,5 @@
 project: abyss
-target: abyss
+target: abyss-overlap
 testsuite:
   - file://Unittest/PairedDBG/test.fa
 

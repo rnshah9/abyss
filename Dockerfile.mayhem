@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:18.04 as builder
 
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends \
@@ -13,3 +13,12 @@ RUN apt-get install -y --no-install-recommends \
 	&& make -j8 install-strip \
 	&& apt-get autoremove -y binutils \
 		automake g++ libboost-dev libopenmpi-dev libsparsehash-dev
+
+RUN mkdir -p /deps
+RUN ldd /usr/local/bin/abyss-overlap | tr -s '[:blank:]' '\n' | grep '^/' | xargs -I % sh -c 'cp % /deps;'
+
+FROM ubuntu:18.04 as package
+
+COPY --from=builder /deps /deps
+COPY --from=builder /usr/local/bin/abyss-overlap /usr/local/bin/abyss-overlap
+ENV LD_LIBRARY_PATH=/deps
