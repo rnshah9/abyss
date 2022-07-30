@@ -4,4 +4,5 @@ testsuite:
   - file://Unittest/PairedDBG/test.fa
 
 cmds:
-  - cmd: /usr/local/bin/abyss-overlap @@
+  - cmd: /install/bin/abyss-overlap @@
+
